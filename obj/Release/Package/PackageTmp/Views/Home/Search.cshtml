@@ -1,0 +1,100 @@
+﻿@using BlogMusic.Models
+@model SearchViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - @ViewBag.Aranan Arama Sonuçları</title>
+
+<div class="main">
+
+    <div class="content">
+
+        <div class="content_resize">
+            <div class="mainbar">
+                <h2 style="text-align:left">"@ViewBag.Aranan" Arama Sonuçları</h2>
+                <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+                @if (Model.Sarkilar.Count() != 0)
+                {
+                    <h5 style="text-align:left">Şarkılar</h5>
+                    <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+                    foreach (var sarki in Model.Sarkilar)
+                    {
+
+                        MusicContext context = new MusicContext();
+                        var sanatci = context.Sanatcis.FirstOrDefault(i => i.Id == sarki.SanatciId);
+
+
+                        <a href="/Music/MusicDetay/@sarki.Id">
+                            <img src="@sarki.ResimUrl" width="150" height="150" alt="" class="fl" />
+                        </a>
+                        <div class="article">
+                            <h4><span><a href="/Music/MusicDetay/@sarki.Id">@sarki.SarkiAd</a></span></h4>
+                            <h6><span>@sanatci.SanatciAdi</span></h6>
+                            <p class="post-data"> <span class="date">Çıkış Yılı: @sarki.CikisTarihi.Year</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+
+                            <p class="spec"><a href="/Music/MusicDetay/@sarki.Id" class="rm">Şarkı Sözlerini Gör</a></p>
+
+                        </div>
+                        <hr />
+
+                    }
+
+                }
+
+                @if (Model.Sanatcilar.Count() != 0)
+                {
+                    <br /><br />
+                    <h5 style="text-align:left">Sanatçılar</h5>
+                    <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+                    foreach (var sanatci in Model.Sanatcilar)
+                    {
+
+                        <a href="/Sanatci/SanatciDetay/@sanatci.Id">
+                            <img src="@sanatci.ResimUrl" width="150" height="150" alt="" class="fl" />
+                        </a>
+                        <div class="article">
+                            <h4><span><a href="/Sanatci/SanatciDetay/@sanatci.Id">@sanatci.SanatciAdi</a></span></h4>
+                            <p class="post-data">@sanatci.SanatciHakkinda.Substring(0, 200)...<a href="/Sanatci/SanatciDetay/@sanatci.Id">Devamını Oku</a></p>
+
+                            <p class="spec"><a href="/Sanatci/SanatciDetay/@sanatci.Id" class="rm">Devamını Oku</a></p>
+
+                        </div>
+                        <hr />
+
+                    }
+                }
+
+                @if (Model.Gundemler.Count() != 0)
+                {
+                    <br /><br />
+                    <h5 style="text-align:left">"@ViewBag.Aranan" ile ilgili Haberler</h5>
+                    <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+                    foreach (var haber in Model.Gundemler)
+                    {
+                        <a href="/Gundem/HaberDetay/@haber.Id"><img src="@haber.GundemResim" width="200" height="200" alt="" class="fl" /></a>
+                        <div class="article">
+                            <h4><span><a href="/Gundem/HaberDetay/@haber.Id">@haber.Baslik</a></span></h4>
+                            <h6><span>@haber.Icerik.Substring(0, 200)...<a href="/Gundem/HaberDetay/@haber.Id">Devamını Oku</a></span></h6>
+
+                            <p class="post-data"> <span class="date">Eklenme Tarihi: @haber.Tarih.ToShortDateString()</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+                            <p class="spec"><a href="/Gundem/HaberDetay/@haber.Id" class="rm">Devamını Oku</a></p>
+                        </div>
+                        <hr />
+                    }
+                }
+
+                @if (Model.Gundemler.Count() == 0 && Model.Sanatcilar.Count() == 0 && Model.Sarkilar.Count() == 0)
+                {
+                    <h5 style="text-align:center">"@ViewBag.Aranan" ile ilgili içerik bulunamadı.</h5>
+                }
+
+            </div>
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>

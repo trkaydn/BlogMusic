@@ -1,0 +1,69 @@
+﻿@using BlogMusic.Models
+@model List<Gundem>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["GundemMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["GundemMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h5 class="card-header">Tüm Haberler (@Model.Count()) </h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Haber Başlığı</th>
+                            <th class="border-0">Tarih</th>
+                            <th class="border-0">İçerik</th>
+                            <th class="border-0">Sayfada Gör</th>
+                            <th class="border-0">Güncelle</th>
+                            <th class="border-0">Sil</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var haber in Model)
+                        {
+
+                            <tr>
+                                <td>@haber.Baslik</td>
+                                <td>@haber.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
+
+                                @if (haber.Icerik.Count() <= 80)
+                                {
+                                    <td>@haber.Icerik</td>
+                                }
+
+                                else
+                                {
+                                    <td style="width:640px;height:105px;">
+                                        <a class="btn btn-primary btn-xs" href="javascript:void(0)" data-toggle="collapse" data-target="#@haber.Id" aria-expanded="false" aria-controls="collapseEleven">
+                                            <span class="fas mr-3 fa-angle-down"></span>Devamını Gör
+                                        </a>
+                                        @haber.Icerik.Substring(0, 80)
+
+                                        <div id="@haber.Id" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion4" style="width:640px;height:65px;">
+                                            @haber.Icerik.Substring(80)
+                                        </div>
+                                    </td>
+                                }
+                                <td><a href="/Gundem/HaberDetay/@haber.Id" class="btn btn-primary" target="_blank">Sayfada Gör</a></td>
+                                <td><a href="/Admin/UpdateGundem/@haber.Id" class="btn btn-success">Güncelle</a></td>
+                                <td><a href="/Admin/DeleteGundem/@haber.Id" class="btn btn-danger">Sil</a></td>
+                            </tr>
+                        }
+                        <tr>
+                        <td colspan="9"><a href="/Admin/AddGundem/" class="btn btn-brand btn-block">Yeni Haber Yayınla</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

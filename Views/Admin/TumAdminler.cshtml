@@ -1,0 +1,66 @@
+﻿@using BlogMusic.Models
+@model IEnumerable<Admin>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["AdminEditMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["AdminEditMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h5 class="card-header">Moderatörler (@Model.Count()) </h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Ad Soyad</th>
+                            <th class="border-0">Kullanıcı Adı</th>
+                            <th class="border-0">E-Posta</th>
+                            <th class="border-0">Hakkında</th>
+                            <th class="border-0">Sil</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var admin in Model)
+                        {
+
+                        <tr>
+                            <td>@admin.AdSoyad</td>
+                            <td>@admin.UserName</td>
+                            <td>@admin.Mail</td>
+                            @if (admin.AboutMe.Count() <= 80)
+                            {
+                                <td>@admin.AboutMe</td>
+                            }
+
+                            else
+                            {
+                                <td style="width:640px;height:105px;">
+                                    <a class="btn btn-primary btn-xs" href="javascript:void(0)" data-toggle="collapse" data-target="#@admin.Id" aria-expanded="false" aria-controls="collapseEleven">
+                                        <span class="fas mr-3 fa-angle-down"></span>Devamını Gör
+                                    </a>
+                                    @admin.AboutMe.Substring(0, 80)
+
+                                    <div id="@admin.Id" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion4" style="width:640px;height:65px;">
+                                        @admin.AboutMe.Substring(80)
+                                    </div>
+                                </td>
+                            }
+                            <td><a href="/Admin/DeleteAdmin/@admin.Id" class="btn btn-danger">Sil</a></td>
+                        </tr>
+                        }
+                        <tr>
+                            <td colspan="9"><a href="/Admin/AddAdmin/" class="btn btn-brand btn-block">Yeni Moderatör Ekle</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

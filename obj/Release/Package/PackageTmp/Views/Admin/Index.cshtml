@@ -1,0 +1,257 @@
+﻿@using BlogMusic.Models
+@model  AdminViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<Message> sonmesajlar = Model.Messages.OrderByDescending(i => i.Tarih).Take(6).ToList();
+    List<Comment> onaybekleyenler = Model.Comments.Where(i => i.Activated == false).OrderByDescending(i => i.YorumTarihi).Take(6).ToList();
+
+
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Şarkı Evreni Yönetici Paneli </h2>
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="ecommerce-widget">
+
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h3 class="card-title">Toplam Haber Sayısı</h3>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">@Model.Gundems.Count()</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                            </div>
+                        </div>
+                        <div id="sparkline-revenue"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h3 class="card-title">Toplam Şarkı Sayısı</h3>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">@Model.Musics.Count()</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                            </div>
+                        </div>
+                        <div id="sparkline-revenue2"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h3 class="card-title">Toplam Yorum Sayısı</h3>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">@Model.Comments.Count()</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
+                                <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
+                                    <span>Onay Bekleyen Yorum Sayısı: @Model.Comments.Where(i => i.Activated == false).Count()</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sparkline-revenue4"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h3 class="card-title">Toplam Kategori Sayısı</h3>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">@Model.Kategoris.Count()</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
+                            </div>
+                        </div>
+                        <div id="sparkline-revenue4"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h3 class="card-title">Toplam Sanatçı Sayısı</h3>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">@Model.Sanatcis.Count()</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
+                            </div>
+                        </div>
+                        <div id="sparkline-revenue3"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h3 class="card-title">Toplam Mesaj Sayısı</h3>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">@Model.Messages.Count()</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
+                            </div>
+                        </div>
+                        <div id="sparkline-revenue4"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+
+                <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Son Mesajlar</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">Gönderen</th>
+                                            <th class="border-0">E-Posta</th>
+                                            <th class="border-0">Tarih</th>
+                                            <th class="border-0">Konu</th>
+                                            <th class="border-0">Mesaj</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var mesaj in sonmesajlar)
+                                        {
+                                            <tr>
+                                                <td>@mesaj.Name</td>
+                                                <td>@mesaj.Mail</td>
+                                                <td>@mesaj.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
+                                                <td>@mesaj.Konu</td>
+
+                                                @if (mesaj.Mesaj.Count() <= 100)
+                                                {
+                                                    <td>@mesaj.Mesaj</td>
+                                                }
+
+                                                else
+                                                {
+                                                    <td>@mesaj.Mesaj.Substring(0, 100) ...</td>
+                                                }
+                                            </tr>
+                                        }
+
+                                        <tr>
+                                            <td colspan="9"><a href="/Admin/GelenKutusu/" class="btn btn-outline-light float-right">Tümünü Gör</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h5 class="card-header">Onay Bekleyen Yorumlar (@Model.Comments.Where(i => i.Activated == false).Count()) </h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">Gönderen</th>
+                                            <th class="border-0">E-Posta</th>
+                                            <th class="border-0">Tarih</th>
+                                            <th class="border-0">İçerik</th>
+                                            <th class="border-0">Yorum</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var yorum in onaybekleyenler)
+                                        {
+                                            string baslik = yorum.FormName;
+                                            string konu = null;
+                                            if (baslik == "Gundem")
+                                            { konu = Model.Gundems.FirstOrDefault(i => i.Id == yorum.BaslikId).Baslik; }
+                                            else if (baslik == "Music")
+                                            { konu = Model.Musics.FirstOrDefault(i => i.Id == yorum.BaslikId).SarkiAd; }
+                                            else if (baslik == "Sanatci")
+                                            { konu = Model.Sanatcis.FirstOrDefault(i => i.Id == yorum.BaslikId).SanatciAdi; }
+
+                                            <tr>
+                                                <td>@yorum.Name</td>
+                                                <td>@yorum.Email</td>
+                                                <td>@yorum.YorumTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                                                <td>@konu</td>
+
+
+                                                @if (yorum.YorumIcerik.Count() <= 100)
+                                                {
+                                                    <td>@yorum.YorumIcerik</td>
+                                                }
+
+                                                else
+                                                {
+                                                    <td>@yorum.YorumIcerik.Substring(0, 100) ...</td>
+                                                }
+                                            </tr>
+                                        }
+
+                                        <tr>
+                                            <td colspan="9"><a href="/Admin/YorumOnay/" class="btn btn-outline-light float-right">Tümünü Gör</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <br />
+                        <h3 class="card-title" style="text-align:center">Yönetici Bilgileri</h3>
+                        <div class="card-body" style="text-align:center">
+                            <img src="@ViewBag.AdminResim" style="width:250px;height:250px;" />
+                            <br /><br />
+                            <h3 class="card-title">@ViewBag.AdminAdi</h3>
+
+                            <div class="text-center">
+                                <span class="legend-item mr-2">
+                                    <span class="fa-xs text-primary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
+                                    <a href="/Admin/BilgiGuncelle/"><span class="legend-text">Bilgilerini Güncelle</span></a>
+                                </span>
+                                <span class="legend-item mr-2">
+
+                                    <span class="fa-xs text-secondary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
+                                    <a href="/Admin/Logout/"><span class="legend-text">Çıkış Yap</span></a>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="ct-chart ct-golden-section" style="height: 354px;">
+
+                            <div class="card" style="text-align:center">
+
+                                <div class="card-body p-0">
+                                    <div class="p-3 mb-2 bg-light text-dark"><h3 class="card-title">İşlem Kısayolları</h3></div>
+
+                                    <a href="/Admin/AddGundem/" class="btn btn-outline-primary btn-block">Haber Yayınla</a>
+                                    <a href="/Admin/AddMusic/" class="btn btn-outline-primary btn-block">Şarkı Paylaş</a>
+                                    <a href="/Admin/AddSanatci/" class="btn btn-outline-primary btn-block">Sanatçı Ekle</a>
+                                    <a href="/Admin/AddKategori/" class="btn btn-outline-primary btn-block">Kategori Ekle</a>
+                                    <a href="/Admin/YorumOnay/" class="btn btn-outline-primary btn-block">Yorum Onayla</a>
+                                    <a href="/Admin/GelenKutusu/" class="btn btn-outline-primary btn-block">Gelen Kutusu</a>
+                                    <a href="/Home/Index/" target="_blank" class="btn btn-outline-primary btn-block">Siteye Git</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

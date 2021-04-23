@@ -1,0 +1,30 @@
+﻿@using BlogMusic.Models
+@model Kategori
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h3 class="card-header">Kategori Ekleme Formu</h3>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="KategoriAdi">Kategori Adı</label>
+                    <input id="KategoriAdi" type="text" name="KategoriAdi" class="form-control parsley-error" maxlength="20" required>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                        <p class="text-right">
+                            <button type="submit" class="btn btn-space btn-primary">Ekle</button>
+                            <button type="reset" class="btn btn-space btn-secondary" onclick="location.href='/Admin/TumKategoriler/'">İptal</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

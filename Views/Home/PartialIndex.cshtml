@@ -1,0 +1,93 @@
+﻿@using BlogMusic.Models
+@model MusicViewModel
+@{
+    IEnumerable<Music> yenieklenen = Model.YeniEklenen;
+    IEnumerable<Music> cokdinlenen = Model.CokDinlenen;
+    IEnumerable<Gundem> TopGundem = Model.TopGundem;
+}
+
+<script type="text/javascript" src="~/template/js/cuf_run.js"></script>
+<div class="content_resize" id="content1">
+    <div class="mainbar" id="main1">
+        <br />
+        <h3 style="text-align:left">En Yeni Haberler</h3>
+        <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+        @foreach (var haber in TopGundem)
+        {
+
+
+            <a href="/Gundem/HaberDetay/@haber.Id"><img src="@haber.GundemResim" width="200" height="200" alt="" class="fl" /></a>
+            <div class="article">
+                <h4><span><a href="/Gundem/HaberDetay/@haber.Id">@haber.Baslik</a></span></h4>
+                @if (haber.Icerik.Count() < 200)
+                {
+                    <h6><span>@haber.Icerik<a href="/Gundem/HaberDetay/@haber.Id"> Devamını Oku</a></span></h6>
+                }
+                else
+                {
+                    <h6><span>@haber.Icerik.Substring(0, 200)...<a href="/Gundem/HaberDetay/@haber.Id">Devamını Oku</a></span></h6>
+                }
+                <p class="post-data"> <span class="date">Eklenme Tarihi: @haber.Tarih.ToShortDateString()</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+                <p class="spec"><a href="/Gundem/HaberDetay/@haber.Id" class="rm">Devamını Oku</a></p>
+            </div>
+            <hr />
+        }
+
+
+        <br /><br />
+        <h3 style="text-align:left">En Beğenilen Şarkılar</h3>
+        <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+        @foreach (var music in cokdinlenen)
+        {
+            MusicContext context = new MusicContext();
+            var sanatci = context.Sanatcis.FirstOrDefault(i => i.Id == music.SanatciId);
+
+
+            <a href="/Music/MusicDetay/@music.Id">
+                <img src="@music.ResimUrl" width="150" height="150" alt="" class="fl" />
+            </a>
+            <div class="article">
+                <h4><span><a href="/Music/MusicDetay/@music.Id">@music.SarkiAd</a></span></h4>
+                <h6><span>@sanatci.SanatciAdi</span></h6>
+                <p class="post-data"> <span class="date">Çıkış Yılı: @music.CikisTarihi.Year</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+
+                <p class="spec"><a href="/Music/MusicDetay/@music.Id" class="rm">Şarkı Sözlerini Gör</a></p>
+
+            </div>
+            <hr />
+
+        }
+
+        <br /><br />
+        <h3 style="text-align:left">Son Eklenen Şarkılar</h3>
+        <hr style="background-color: #fff; border-top: 2px dotted #8c8b8b;" />
+
+        @foreach (var music in yenieklenen)
+        {
+            MusicContext context = new MusicContext();
+            var sanatci = context.Sanatcis.FirstOrDefault(i => i.Id == music.SanatciId);
+
+
+            <a href="/Music/MusicDetay/@music.Id">
+                <img src="@music.ResimUrl" width="150" height="150" alt="" class="fl" />
+            </a>
+            <div class="article">
+                <h4><span><a href="/Music/MusicDetay/@music.Id">@music.SarkiAd</a></span></h4>
+                <h6><span>@sanatci.SanatciAdi</span></h6>
+                <p class="post-data"> <span class="date">Çıkış Yılı: @music.CikisTarihi.Year</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+
+                <p class="spec"><a href="/Music/MusicDetay/@music.Id" class="rm">Şarkı Sözlerini Gör</a></p>
+
+            </div>
+            <hr />
+        }
+
+        @*<div class="pagenavi"><span class="pages">Page 1 of 2</span><span class="current">1</span><a href="#">2</a><a href="#">&raquo;</a></div>*@
+
+    </div>
+
+    @Html.Partial("_Sidebar")
+    <div class="clr"></div>
+</div>

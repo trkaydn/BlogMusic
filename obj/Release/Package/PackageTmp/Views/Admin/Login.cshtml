@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Şarkı Evreni - Giriş Yap</title>
+    <link href="~/template/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/template/assets/vendor/fonts/circular-std/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/template/assets/libs/css/style.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="shortcut icon" type="image/x-icon" href="~/template/images/favicon2.ico" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="splash-container">
+        <div class="card ">
+            <div class="card-header text-left"><h1 class="display-4" style="float:left">Şarkı <br /> Evreni</h1><br /><img src="~/template/images/favicon.ico" alt="logo" style="width:90px;height:90px;float:right" /></div>
+            <br /><span class="splash-description">Yönetici Girişi</span>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" name="UserName" type="text" placeholder="Kullanıcı Adı" autocomplete="off" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" name="Password" type="password" placeholder="Şifre" maxlength="50">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Giriş Yap</button>
+                </form>
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <span class="splash-description" style="color:red; text-align:center">@ViewBag.LoginMesage</span>
+                    </label>
+                    <a href="/Home/Index/" class="btn btn-secondary btn-block">Şarkı Evreni'ne Dön</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/template/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="~/template/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+
+</html>

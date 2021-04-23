@@ -1,0 +1,36 @@
+﻿@using BlogMusic.Models
+@model SanatciViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - Sanatçılar</title>
+<link href="~/template/style.css" rel="stylesheet" />
+<div class="main">
+    <div class="content">
+
+        <div class="content_resize">
+            <div class="mainbar">
+                <br />
+                <h3 style="text-align:center">Tüm Sanatçılar</h3>
+                <hr />
+
+                <div class="clr"></div>
+
+                @foreach (var sanatci in Model.Sanatcilar)
+                {
+                    <a href="/Sanatci/SanatciDetay/@sanatci.Id">
+                        <div class="gallery">
+                            <img src="@sanatci.ResimUrl" alt="" style="width:175px;height:175px">
+
+
+                            <div class="desc"><strong>@sanatci.SanatciAdi</strong></div>
+                        </div>
+                    </a>
+                }
+
+            </div>
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>

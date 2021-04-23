@@ -1,0 +1,60 @@
+﻿@using BlogMusic.Models
+@model Music
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h3 class="card-header">Şarkı Paylaşma Formu</h3>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="SarkiAd">Şarkı Adı</label>
+                    <input id="SarkiAd" type="text" name="SarkiAd" class="form-control parsley-error" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="SanatciId">Sanatçı</label>
+                    @Html.DropDownListFor(m => m.SanatciId, (SelectList)ViewBag.Sanatcilar, "Sanatçı Seçiniz", new { @class = "dropdown form-control", required = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="KategoriId">Kategori</label>
+                    @Html.DropDownListFor(m => m.KategoriId, (SelectList)ViewBag.Kategoriler, "Kategori Seçiniz", new { @class = "dropdown form-control", required = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="CikisTarihi">Çıkış Tarihi</label>
+                    <input id="CikisTarihi" type="date" name="CikisTarihi" class="form-control parsley-error" min="01-01-1900" max="01-01-2100" required>
+                </div>
+                <div class="form-group">
+
+                    <label for="Puan">Puan (1-10)</label>
+                    <input id="Puan" type="number" name="Puan" class="form-control parsley-error" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="ResimUrl">Albüm Fotoğrafı URL</label>
+                    <input id="ResimUrl" type="url" name="ResimUrl" class="form-control parsley-error" maxlength="250" required>
+                </div>
+                <div class="form-group">
+                    <label for="YoutubeUrl">Youtube Embed URL</label>
+                    <input id="YoutubeUrl" type="url" name="YoutubeUrl" class="form-control parsley-error" maxlength="250" required>
+                </div>
+                <div class="form-group">
+                    <label for="SarkiSozleri">Şarkı Sözleri</label>
+                    <textarea class="form-control" rows="5" name="SarkiSozleri" required></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                        <p class="text-right">
+                            <button type="submit" class="btn btn-space btn-primary">Paylaş</button>
+                            <button type="reset" class="btn btn-space btn-secondary" onclick="location.href='/Admin/TumSarkilar/'">İptal</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

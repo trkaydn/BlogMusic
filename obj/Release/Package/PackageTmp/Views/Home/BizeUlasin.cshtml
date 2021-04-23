@@ -1,0 +1,69 @@
+﻿@model BlogMusic.Models.Message
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - Bize Ulaşın</title>
+
+<link href="~/template/style.css" rel="stylesheet" />
+<div class="main">
+    <div class="content">
+
+        <div class="content_resize">
+            <div class="mainbar">
+                <br />
+                <h3 style="text-align:center">Bize Ulaşın</h3>
+                <hr />
+
+                <div class="article">
+                    <div class="clr"></div>
+
+                    <p>Bize söylemek istediğiniz bir şey mi var? Aşağıdaki formu doldurarak bize ulaşabilirsiniz. <br /> En kısa sürede dönüş yapılacaktır.</p>
+                    <h5 style="color:darkred">@TempData["BizeUlasinMessage"]</h5>
+                </div>
+                <div class="article">
+                    <h4 style="text-align:center">İletişim Formu</h4>
+                    <div class="clr"></div>
+                    @using (Html.BeginForm())
+                    {
+                        <ol>
+                            <li>
+                                <label for=Name>Ad Soyad*</label>
+                                @Html.TextBoxFor(i => i.Name, new { @class = "text", style = "height:auto", maxlength = 50 })<br />
+                                @Html.ValidationMessageFor(i => i.Name, "", new { @class = "text-danger" })
+
+                            </li>
+
+                            <li>
+                                <label for=Mail>E-Posta*</label>
+                                @Html.TextBoxFor(i => i.Mail, new { @class = "text", type = "email", style = "height:auto", maxlength = 50 })<br />
+                                @Html.ValidationMessageFor(i => i.Mail, "", new { @class = "text-danger" })
+
+                            </li>
+
+                            <li>
+                                <label for="Konu">Konu*</label>
+                                @Html.TextBoxFor(i => i.Konu, new { @class = "text", style = "height:auto", maxlength = 250 })<br />
+                                @Html.ValidationMessageFor(i => i.Konu, "", new { @class = "text-danger" })
+
+                            </li>
+
+                            <li>
+                                <label for="Mesaj">Mesaj*</label>
+                                @Html.TextAreaFor(i => i.Mesaj, new { @clas = "text", style = "height:auto" })<br />
+                                @Html.ValidationMessageFor(i => i.Mesaj, "", new { @class = "text-danger" })
+
+                            </li>
+                            <li>
+                                <input type="submit" name="Submit" class="btn btn-secondary">
+                                <div class="clr"></div>
+                            </li>
+                        </ol>
+                    }
+                </div>
+            </div>
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+

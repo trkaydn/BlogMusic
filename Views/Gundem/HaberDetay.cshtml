@@ -1,0 +1,93 @@
+﻿@using BlogMusic.Models
+@model GundemViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - @Model.Gundem.Baslik</title>
+
+<link href="~/template/style.css" rel="stylesheet" />
+
+<div class="main">
+    <div class="content">
+
+        <div class="content_resize">
+            <div class="mainbar">
+
+                <div class="article">
+                    <h3 style="text-align:center">@Model.Gundem.Baslik</h3>
+                    <hr />
+
+                    <img src="@Model.Gundem.GundemResim" width="250" height="300" alt="" class="fl" />
+                    <div class="article">
+                        <h6><span>@Model.Gundem.Icerik</span></h6>
+                        <p class="post-data"> <span class="date">Eklenme Tarihi: @Model.Gundem.Tarih</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+                    </div>
+                </div>
+
+                @*Yorum start*@
+                <div class="article">
+                    <h2><span><cufon class="cufon cufon-canvas" alt="@Model.Comments.Count()" style="width: 14px; height: 24px;"><canvas width="57" height="34" style="width: 57px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext>@Model.Comments.Count()</cufontext></cufon></span><cufon class="cufon cufon-canvas" alt=" " style="width: 7px; height: 24px;"><canvas width="57" height="34" style="width: 57px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext> </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Yorum Yapılmış" style="width: 131px; height: 24px;"><canvas width="174" height="34" style="width: 174px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext>Yorum Yapılmış</cufontext></cufon></h2>
+                    <div class="clr"></div>
+
+                    @foreach (var yorum in Model.Comments)
+                    {
+                        <div class="comment">
+                            <a href="#"><img src="~/template/images/userpic.gif" width="40" height="40" alt="" class="userpic"></a>
+                            <p>
+                                <a href="#">@yorum.Name</a> Diyor ki:<br>
+                                @yorum.YorumTarihi.ToString("dd.MM.yyyy HH:mm")
+                            </p>
+                            <p>@yorum.YorumIcerik</p>
+                        </div>
+                    }
+
+
+                </div>
+                <h6 style="color:darkred">@TempData["HaberDetayMessage"]</h6>
+                <div class="article">
+                    <h2><span><cufon class="cufon cufon-canvas" alt="Bir " style="width: 77px; height: 24px;"><canvas width="127" height="34" style="width: 127px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext>Bir </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Yorum" style="width: 14px; height: 24px;"><canvas width="57" height="34" style="width: 57px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext>Yorum</cufontext></cufon></span><cufon class="cufon cufon-canvas" alt=" " style="width: 7px; height: 24px;"><canvas width="57" height="34" style="width: 57px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext> </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Bırakın" style="width: 67px; height: 24px;"><canvas width="110" height="34" style="width: 110px; height: 34px; top: -5px; left: -15px;"></canvas><cufontext>Bırakın</cufontext></cufon></h2>
+                    <div class="clr"></div>
+                    @using (Html.BeginForm())
+                    {
+                        <ol>
+                            <li>
+                                <label for=Name>Ad Soyad*</label>
+                                @Html.TextBoxFor(i => i.Comment.Name, new { @class = "text", style = "height:auto", maxlength = 50 })<br />
+                                @Html.ValidationMessageFor(i => i.Comment.Name, "", new { @class = "text-danger" })
+
+                            <li>
+                                <label for=Mail>E-Posta*</label>
+                                @Html.TextBoxFor(i => i.Comment.Email, new { @class = "text", type = "email", style = "height:auto", maxlength = 50 })<br />
+                                @Html.ValidationMessageFor(i => i.Comment.Email, "", new { @class = "text-danger" })
+
+
+                            </li>
+                            <li>
+                                <label for="Mesaj">Yorum*</label>
+                                @Html.TextAreaFor(i => i.Comment.YorumIcerik, new { @class = "text", style = "height:auto" })<br />
+                                @Html.ValidationMessageFor(i => i.Comment.YorumIcerik, "", new { @class = "text-danger" })
+
+
+                                @*@Html.HiddenFor(i => i.Comment.BaslikId, new { Value = Model.Sanatci.Id })
+                        @Html.HiddenFor(i => i.Comment.FormName, new { Value = "Gundem" })
+                        @Html.HiddenFor(i => i.Comment.YorumTarihi, new { Value = DateTime.Now })
+                        @Html.HiddenFor(i => i.Comment.Activated, new { Value = false })*@
+
+                                <br />
+                                <input type="submit" name="Gönder" class="btn btn-secondary">
+                                <div class="clr"></div>
+                            </li>
+                        </ol>
+                    }
+                </div>
+
+                @*Yorum End*@
+                <div class="clr"></div>
+
+            </div>
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+

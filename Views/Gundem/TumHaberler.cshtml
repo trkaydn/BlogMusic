@@ -1,0 +1,48 @@
+﻿@using BlogMusic.Models
+@model List<Gundem>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - Haberler</title>
+
+<link href="~/template/style.css" rel="stylesheet" />
+<div class="main">
+    <div class="content">
+        <div class="content_resize">
+            <div class="mainbar">
+                <br />
+                <h3 style="text-align:center">Tüm Haberler</h3>
+                <hr />
+
+
+                @foreach (var haber in Model)
+                {
+
+
+
+                    <a href="/Gundem/HaberDetay/@haber.Id"><img src="@haber.GundemResim" width="200" height="200" alt="" class="fl" /></a>
+                    <div class="article">
+                        <h4><span><a href="/Gundem/HaberDetay/@haber.Id">@haber.Baslik</a></span></h4>
+                        @if (haber.Icerik.Count() < 200)
+                        {
+                            <h6><span>@haber.Icerik<a href="/Gundem/HaberDetay/@haber.Id"> Devamını Oku</a></span></h6>
+                        }
+                        else
+                        {
+                            <h6><span>@haber.Icerik.Substring(0, 200)...<a href="/Gundem/HaberDetay/@haber.Id">Devamını Oku</a></span></h6>
+                        }
+
+                        <p class="post-data"> <span class="date">Eklenme Tarihi: @haber.Tarih.ToShortDateString()</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+                        <p class="spec"><a href="/Gundem/HaberDetay/@haber.Id" class="rm">Devamını Oku</a></p>
+                    </div>
+                    <hr />
+                }
+
+            </div>
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+
+        </div>
+    </div>
+</div>
+

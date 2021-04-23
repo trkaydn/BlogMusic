@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="~/template/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/template/assets/libs/css/style.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="~/template/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="~/template/images/favicon2.ico" />
+    <title>Şarkı Evreni - Yönetici Paneli</title>
+
+</head>
+<body>
+
+    <div class="dashboard-main-wrapper">
+
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="~/Admin/Index/">Şarkı Evreni</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <li class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Index/" role="button" aria-haspopup="true" aria-expanded="false" target="_blank"><i class="fa fa-eye fa-fw fa-sm text-info"></i>Siteye Git</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/Logout/"><i class="fas fa-power-off mr-2"></i>Çıkış Yap</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </nav>
+
+        </div>
+        <!-- end navbar -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="/Admin/Index/">Ana Sayfa</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Menüler
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/Admin/Index/"><i class=" fas fa-home"></i>Ana Sayfa <span class="badge badge-success"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>İşlemler</a>
+                                <div id="submenu-2" class="submenu collapse" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Admin/AddGundem/">Haber Yayınla<span class="badge badge-secondary"></span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Admin/AddMusic/">Şarkı Paylaş</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Admin/AddSanatci/">Sanatçı Ekle</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Admin/AddKategori/">Kategori Ekle</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Admin/YorumOnay/">Yorum Onayla</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Admin/BilgiGuncelle/">Bilgilerini Güncelle</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Home/Index/" target="_blank">Siteye Git</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/Admin/TumAdminler/"><i class=" fas fa-users"></i>Moderatörler<span class="badge badge-success"></span></a>
+                            </li>
+
+
+                            <li class="nav-divider">
+                                İçerikler
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/Admin/TumHaberler/"><i class="fab fa-fw fa-wpforms"></i>Haberler</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/TumSarkilar/"><i class="fas fa-headphones"></i>Şarkılar</a>
+
+                            </li>
+                            <li class="nav-item">
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/TumSanatcilar"><i class="fas fa-user"></i>Sanatçılar</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/TumKategoriler"><i class="fas fa-align-justify"></i>Kategoriler</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/GelenKutusu/"><i class="fas fa-envelope"></i>Gelen Kutusu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/TumYorumlar"><i class="fas fa-comment-dots"></i>Yorumlar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-wrapper">
+        @RenderBody()
+
+        <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        Copyright © 2021 <a href="https://www.facebook.com/tarik1846">Tarık Aydın,</a> Her hakkı saklıdır.</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="~/template/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <!-- bootstap bundle js -->
+    <script src="~/template/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js -->
+    <script src="~/template/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <!-- main js -->
+    @*<script src="~/template/assets/libs/js/main-js.js"></script>*@
+    <!-- chart chartist js -->
+    @*<script src="~/template/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>*@
+    <!-- sparkline js -->
+    @*<script src="~/template/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>*@
+    <!-- morris js -->
+    @*<script src="~/template/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+        <script src="~/template/assets/vendor/charts/morris-bundle/morris.js"></script>*@
+    <!-- chart c3 js -->
+    @*<script src="~/template/assets/vendor/charts/c3charts/c3.min.js"></script>
+        <script src="~/template/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+        <script src="~/template/assets/vendor/charts/c3charts/C3chartjs.js"></script>
+        <script src="~/template/assets/libs/js/dashboard-ecommerce.js"></script>*@
+</body>
+</html>

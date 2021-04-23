@@ -1,0 +1,78 @@
+﻿@using BlogMusic.Models
+@model AdminViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<Kategori> kategoriler = Model.Kategoris.ToList();
+    List<Sanatci> sanatcilar = Model.Sanatcis.ToList();
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["MusicMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["MusicMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h5 class="card-header">Tüm Şarkılar (@Model.Musics.Count()) </h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Şarkı Adı</th>
+                            <th class="border-0">Sanatçı</th>
+                            <th class="border-0">Kategori</th>
+                            <th class="border-0">Çıkış Tarihi</th>
+                            <th class="border-0">Puan</th>
+                            <th class="border-0">Şarkı Sözleri</th>
+                            <th class="border-0">Sayfada Gör</th>
+                            <th class="border-0">Güncelle</th>
+                            <th class="border-0">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var music in Model.Musics)
+                        {
+
+                            var kategori = kategoriler.FirstOrDefault(i => i.Id == music.KategoriId);
+                            var sanatci = sanatcilar.FirstOrDefault(i => i.Id == music.SanatciId);
+
+                            <tr>
+                                <td>@music.SarkiAd</td>
+                                <td>@sanatci.SanatciAdi</td>
+                                <td>@kategori.KategoriAdi</td>
+                                <td>@music.CikisTarihi.ToString("dd.MM.yyyy")</td>
+                                <td>@music.Puan</td>
+
+                                @if (music.SarkiSozleri.Count() <= 80)
+                                {
+                                    <td><pre>@music.SarkiSozleri</pre></td>
+                                }
+
+                                else
+                                {
+                                    <td>
+                                        <a class="btn btn-primary btn-xs" href="javascript:void(0)" data-toggle="collapse" data-target="#@music.Id" aria-expanded="false" aria-controls="collapseEleven">
+                                            <span class="fas mr-3 fa-angle-down"></span>Devamını Gör
+                                        </a>
+                                        <pre>@music.SarkiSozleri.Substring(0, 80)</pre>
+
+                                        <div id="@music.Id" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion4">
+                                            <pre>@music.SarkiSozleri.Substring(80)</pre>
+                                        </div>
+                                    </td>
+                                }
+                                <td><a href="/Music/MusicDetay/@music.Id" class="btn btn-primary" target="_blank">Sayfada Gör</a></td>
+                                <td><a href="/Admin/UpdateMusic/@music.Id" class="btn btn-success">Güncelle</a></td>
+                                <td><a href="/Admin/DeleteMusic/@music.Id" class="btn btn-danger">Sil</a></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="9"><a href="/Admin/AddMusic/" class="btn btn-brand btn-block">Yeni Şarkı Paylaş</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@using BlogMusic.Models
+@model AdminViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<Music> sarkilarlistesi = Model.Musics.ToList();
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["KategoriMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["KategoriMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h5 class="card-header">Tüm Kategoriler (@Model.Kategoris.Count()) </h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Kategori Adı</th>
+                            <th class="border-0">Şarkı Sayısı</th>
+                            <th class="border-0">Şarkılar</th>
+                            <th class="border-0">Sayfada Gör</th>
+                            <th class="border-0">Güncelle</th>
+                            <th class="border-0">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var kategori in Model.Kategoris)
+                        {
+
+                            var sarkilar = sarkilarlistesi.Where(i => i.KategoriId == kategori.Id).ToList();
+
+                            <tr>
+                                <td>@kategori.KategoriAdi</td>
+                                <td>@sarkilar.Count</td>
+
+
+                                <td style="width:640px;height:105px;">
+                                    <a class="btn btn-primary btn-xs" href="javascript:void(0)" data-toggle="collapse" data-target="#@kategori.Id" aria-expanded="false" aria-controls="collapseEleven">
+                                        <span class="fas mr-3 fa-angle-down"></span>Göster
+                                    </a>
+
+                                    <div id="@kategori.Id" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion4" style="width:640px;height:65px;">
+                                        @foreach (var sarki in sarkilar)
+                                        {@sarki.SarkiAd <br />}
+                                    </div>
+                                </td>
+
+
+
+                                <td><a href="/Kategori/Sarkilar/@kategori.Id" class="btn btn-primary" target="_blank">Sayfada Gör</a></td>
+                                <td><a href="/Admin/UpdateKategori/@kategori.Id" class="btn btn-success">Güncelle</a></td>
+                                <td><a href="/Admin/DeleteKategori/@kategori.Id" class="btn btn-danger">Sil</a></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="9"><a href="/Admin/AddKategori/" class="btn btn-brand btn-block">Yeni Kategori Ekle</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@using BlogMusic.Models
+@model AdminViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<Music> sarkilarlistesi = Model.Musics.ToList();
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["SanatciMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["SanatciMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h5 class="card-header">Tüm Sanatçılar (@Model.Sanatcis.Count()) </h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Sanatçı Adı</th>
+                            <th class="border-0">Şarkı Sayısı</th>
+                            <th class="border-0">Hakkında</th>
+                            <th class="border-0">Sayfada Gör</th>
+                            <th class="border-0">Güncelle</th>
+                            <th class="border-0">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var sanatci in Model.Sanatcis)
+                        {
+
+                            var sarkilar = sarkilarlistesi.Where(i => i.SanatciId == sanatci.Id).ToList();
+
+                            <tr>
+                                <td>@sanatci.SanatciAdi</td>
+                                <td>@sarkilar.Count</td>
+                                @if (sanatci.SanatciHakkinda.Count() <= 80)
+                                {
+                                    <td>@sanatci.SanatciHakkinda</td>
+                                }
+
+                                else
+                                {
+                                    <td style="width:640px;height:105px;">
+                                        <a class="btn btn-primary btn-xs" href="javascript:void(0)" data-toggle="collapse" data-target="#@sanatci.Id" aria-expanded="false" aria-controls="collapseEleven">
+                                            <span class="fas mr-3 fa-angle-down"></span>Devamını Gör
+                                        </a>
+                                        @sanatci.SanatciHakkinda.Substring(0, 80)
+
+                                        <div id="@sanatci.Id" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion4" style="width:640px;height:65px;">
+                                            @sanatci.SanatciHakkinda.Substring(80)
+                                        </div>
+                                    </td>
+                                }
+
+
+                                <td><a href="/Sanatci/SanatciDetay/@sanatci.Id" class="btn btn-primary" target="_blank">Sayfada Gör</a></td>
+                                <td><a href="/Admin/UpdateSanatci/@sanatci.Id" class="btn btn-success">Güncelle</a></td>
+                                <td><a href="/Admin/DeleteSanatci/@sanatci.Id" class="btn btn-danger">Sil</a></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="9"><a href="/Admin/AddSanatci/" class="btn btn-brand btn-block">Yeni Sanatçı Ekle</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

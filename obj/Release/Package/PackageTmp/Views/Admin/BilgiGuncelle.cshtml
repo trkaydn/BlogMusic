@@ -1,0 +1,60 @@
+﻿@using BlogMusic.Models
+@model Admin
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["AdminMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["AdminMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h3 class="card-header">Bilgi Güncelleme Formu</h3>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="AdSoyad">Ad Soyad</label>
+                    <input id="AdSoyad" type="text" name="AdSoyad" class="form-control parsley-error" value="@Model.AdSoyad" maxlength="50" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Mail">E-Posta</label>
+                    <input id="Mail" type="email" name="Mail" class="form-control parsley-error" value="@Model.Mail" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="ResimUrl">Resim Url</label>
+                    <input id="ResimUrl" type="url" name="ResimUrl" class="form-control parsley-error" value="@Model.ResimUrl" maxlength="250" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="UserName">Kullanıcı Adı</label>
+                    <input id="UserName" type="text" name="UserName" class="form-control parsley-error" value="@Model.UserName" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="Password">Şifre</label>
+                    <input id="Password" type="text" name="Password" class="form-control parsley-error" value="@Model.Password" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="Icerik">Hakkımda</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="AboutMe" required>@Model.AboutMe</textarea>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                        <p class="text-right">
+                            <button type="submit" class="btn btn-space btn-primary">Güncelle</button>
+                            <button type="reset" class="btn btn-space btn-secondary" onclick="location.href='/Admin/Index/'">İptal</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

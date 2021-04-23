@@ -1,0 +1,45 @@
+﻿@using BlogMusic.Models
+@model List<BlogMusic.Models.Music>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - @ViewBag.Kategoriad</title>
+
+<div class="main">
+    <div class="content">
+        <div class="content_resize">
+            <div class="mainbar">
+                <br />
+                <h3 style="text-align:center">@ViewBag.Kategoriad Kategorisindeki Şarkılar</h3>
+                <hr />
+
+                @foreach (var music in Model)
+                {
+                    MusicContext context = new MusicContext();
+                    var sanatci = context.Sanatcis.FirstOrDefault(i => i.Id == music.SanatciId);
+
+
+                    <a href="/Music/MusicDetay/@music.Id">
+                        <img src="@music.ResimUrl" width="150" height="150" alt="" class="fl" />
+                    </a>
+                    <div class="article">
+                        <h4><span><a href="/Music/MusicDetay/@music.Id">@music.SarkiAd</a></span></h4>
+                        <h6><span>@sanatci.SanatciAdi</span></h6>
+                        <p class="post-data"> <span class="date">Çıkış Yılı: @music.CikisTarihi.Year</span> &nbsp;|&nbsp; Posted by <a href="#">Tarık A.</a> &nbsp;|&nbsp;</p>
+
+                        <p class="spec"><a href="/Music/MusicDetay/@music.Id" class="rm">Şarkı Sözlerini Gör</a></p>
+
+                    </div>
+                    <hr />
+
+                }
+                @*<div class="pagenavi"><span class="pages">Page 1 of 2</span><span class="current">1</span><a href="#">2</a><a href="#">&raquo;</a></div>*@
+
+            </div>
+
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+

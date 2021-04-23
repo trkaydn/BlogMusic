@@ -1,0 +1,31 @@
+﻿@model List<BlogMusic.Models.Kategori>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<title>Şarkı Evreni - Kategoriler</title>
+
+<div class="main">
+    <div class="content">
+        <div class="content_resize">
+            <div class="mainbar">
+                <br />
+                <h3 style="text-align:center">Kategori Listesi</h3>
+                <hr />
+                <ul class="list-group">
+                    @foreach (var ctg in Model)
+                    {
+                        <a href="/Kategori/Sarkilar/@ctg.Id/" class="font-weight-bold">
+                            <li class="list-group-item list-group-item-secondary" style="text-align:center">
+                                <h6>@ctg.KategoriAdi</h6>
+                            </li>
+                        </a>
+                    }
+                </ul>
+
+            </div>
+            @Html.Partial("_Sidebar")
+            <div class="clr"></div>
+
+        </div>
+    </div>
+</div>

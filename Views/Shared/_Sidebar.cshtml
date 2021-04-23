@@ -1,0 +1,52 @@
+﻿@using BlogMusic.Models
+@{
+    MusicContext context = new MusicContext();
+    List<Kategori> listectg = context.Kategoris.ToList();
+    List<Music> listemusic = context.Musics.Take(5).OrderByDescending(i => i.Id).ToList();
+    List<Gundem> listegundem = context.Gundems.Take(5).OrderByDescending(i => i.Tarih).ToList();
+}
+<link href="~/template/style.css" rel="stylesheet" />
+
+<div class="sidebar">
+    <div class="gadget">
+        <h3 class="star"><span>Kategoriler</span></h3>
+        <div class="clr"></div>
+        <ul class="sb_menu">
+            @foreach (var category in listectg)
+            {
+                <li><a href="/Kategori/Sarkilar/@category.Id">@category.KategoriAdi</a></li>
+            }
+
+        </ul>
+    </div>
+    <div class="gadget">
+        <h3 class="star"><span>Yeni Haberler</span></h3>
+        <div class="clr"></div>
+        <ul class="sb_menu">
+            @foreach (var haber in listegundem)
+            {
+                <li><a href="/Gundem/HaberDetay/@haber.Id">@haber.Baslik</a></li>
+            }
+
+        </ul>
+    </div>
+
+    <div class="gadget">
+        <h3 class="star"><span>Son Eklenenler</span></h3>
+        <div class="clr"></div>
+        <ul class="ex_menu">
+            @foreach (var soneklenenler in listemusic)
+            {
+                var sanatci = context.Sanatcis.FirstOrDefault(i => i.Id == soneklenenler.SanatciId);
+
+                <li>
+                    <a href="/Music/MusicDetay/@soneklenenler.Id">@soneklenenler.SarkiAd</a><br />
+                    @sanatci.SanatciAdi
+                </li>
+            }
+        </ul>
+        <br />
+        <img src="~/template/images/side.jpg" style="width:300px;height:500px" class="" />
+
+    </div>
+</div>

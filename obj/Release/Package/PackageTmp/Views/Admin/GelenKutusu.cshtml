@@ -1,0 +1,67 @@
+﻿@using BlogMusic.Models
+@model AdminViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    List<Message> liste = Model.Messages.OrderByDescending(i => i.Tarih).ToList();
+}
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    @if (TempData["DmMessage"] != null)
+    {
+        <div class="p-3 mb-2 bg-info text-dark"><h3>@TempData["DmMessage"]</h3></div>
+
+    }
+    <div class="card">
+        <h5 class="card-header">Gelen Kutusu (@Model.Messages.Count()) </h5>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr class="border-0">
+                            <th class="border-0">Gönderen</th>
+                            <th class="border-0">E-Posta</th>
+                            <th class="border-0">Tarih</th>
+                            <th class="border-0">Konu</th>
+                            <th class="border-0">Mesaj</th>
+                            <th class="border-0">Sil</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var mesaj in liste)
+                        {
+
+                            <tr>
+                                <td>@mesaj.Name</td>
+                                <td>@mesaj.Mail</td>
+                                <td>@mesaj.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@mesaj.Konu</td>
+
+                                @if (mesaj.Mesaj.Count() <= 100)
+                                {
+                                    <td>@mesaj.Mesaj</td>
+                                }
+
+                                else
+                                {
+                                    <td style="width:805px;height:62px;">
+                                        <a class="btn btn-primary btn-xs" href="javascript:void(0)" data-toggle="collapse" data-target="#@mesaj.Id" aria-expanded="false" aria-controls="collapseEleven">
+                                            <span class="fas mr-3 fa-angle-down"></span>Devamını Gör
+                                        </a>
+                                        @mesaj.Mesaj.Substring(0, 100)
+
+                                        <div id="@mesaj.Id" class="collapse" aria-labelledby="headingEleven" data-parent="#accordion4" style="width: 750px; height: 62px;">
+                                            @mesaj.Mesaj.Substring(100)
+                                        </div>
+                                    </td>
+
+                                }
+                                <td><a href="/Admin/DeleteMessage/@mesaj.Id" class="btn btn-danger">Sil</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
